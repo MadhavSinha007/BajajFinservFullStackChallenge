@@ -1,0 +1,62 @@
+@baseUrl = http://localhost:8080
+
+# Test 1 - From Doc
+POST {{baseUrl}}/bfhl
+Content-Type: application/json
+
+{
+  "data": [
+    "A->B", "A->C", "B->D", "C->E", "E->F",
+    "X->Y", "Y->Z", "Z->X",
+    "P->Q", "Q->R",
+    "G->H", "G->H", "G->I",
+    "hello", "1->2", "A->"
+  ]
+}
+
+### Test 2 - Diamond
+POST {{baseUrl}}/bfhl
+Content-Type: application/json
+
+{
+  "data": [
+    "A->B",
+    "A->C",
+    "B->D",
+    "C->D"
+  ]
+}
+
+### Test 3 - Cycle
+POST {{baseUrl}}/bfhl
+Content-Type: application/json
+
+{
+  "data": [
+    "J->K",
+    "K->L",
+    "L->J"
+  ]
+}
+
+### Test 4 - Self-Loop and Invalids
+POST {{baseUrl}}/bfhl
+Content-Type: application/json
+
+{
+  "data": [
+    "M->M",
+    "AB->C",
+    "A-B",
+    " ",
+    "Z->9"
+  ]
+}
+
+### Test 5 - Empty Array
+POST {{baseUrl}}/bfhl
+Content-Type: application/json
+
+{
+  "data": []
+}
